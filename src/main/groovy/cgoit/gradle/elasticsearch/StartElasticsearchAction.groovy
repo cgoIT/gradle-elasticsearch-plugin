@@ -12,7 +12,6 @@ import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEAR
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEARCH_SCHEME
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEARCH_TRANSPORT_PORT
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEARCH_VERSION
-import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEARCH_VERSION
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.NORMAL
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.RED
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.YELLOW
@@ -56,6 +55,10 @@ class StartElasticsearchAction {
     @Input
     @Optional
     Boolean forceShutdownBeforeStart = Boolean.FALSE
+
+    @Input
+    @Optional
+    Boolean xpackMlEnabled
 
     private Project project
 
@@ -114,9 +117,14 @@ class StartElasticsearchAction {
                 "${optPrefix}http.port=$httpPort",
                 "${optPrefix}transport.tcp.port=$transportPort",
                 "${optPrefix}path.data=$dataDir",
-                "${optPrefix}path.logs=$logsDir",
-                "${optPrefix}xpack.ml.enabled=false"
+                "${optPrefix}path.logs=$logsDir"
         ]
+
+        if (xpackMlEnabled != null) {
+            command += [
+                    "${optPrefix}xpack.ml.enabled=$xpackMlEnabled"
+            ]
+        }
 
         println "${CYAN}* elastic:$NORMAL start ElasticSearch with parameters: ${command.toListString()}"
 
