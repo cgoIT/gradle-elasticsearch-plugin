@@ -103,6 +103,17 @@ In the doLast ElasticSearch is stopped. Note that ElasticSearch is also stopped 
 section - this is to catch any crashes during the integration tests and make sure that ElasticSearch is stopped in the 
 build clean-up phase.
 
+If you want to control the machine learning settings, you can add this parameter in the doFirst block. It may be necessary 
+as some versions of Elasticsearch may fail to start due to an unknown parameter error.
+
+```gradle
+
+    doFirst {
+      ...
+      xpackMlEnabled = false
+    }
+```
+
 Lastly the regular test task is configured to exclude the tests with the IT suffix - we only wanted to run these in the
 integration tests phase, not with the regular tests.
 
