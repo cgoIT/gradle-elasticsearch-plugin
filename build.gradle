@@ -61,7 +61,7 @@ publishing {
 
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'a gradle plugin for starting and stopping ElasticSearch during integration tests')
+                root.appendNode('description', 'a gradle plugin for starting and stopping Elasticsearch during integration tests')
                 root.children().last() + pomConfig
             }
         }
@@ -95,7 +95,7 @@ bintray {
         issueTrackerUrl = "https://github.com/cgoIT/$repoName/issues"
         vcsUrl = "https://github.com/cgoIT/${repoName}.git"
         licenses = ['Apache-2.0']
-        labels = ['gradle', 'plugin', 'elastic', 'ElasticSearch', repoName]
+        labels = ['gradle', 'plugin', 'elastic', 'Elasticsearch', repoName]
         version {
             name = project.version
         }
@@ -105,13 +105,13 @@ bintray {
 pluginBundle {
     website = "https://github.com/cgoIT/$repoName"
     vcsUrl = "https://github.com/cgoIT/${repoName}.git"
-    description = 'An ElasticSearch gradle plugin for starting an ElasticSearch within a gradle build.'
-    tags = ['elastic', 'ElasticSearch']
+    description = 'An Elasticsearch gradle plugin for starting an Elasticsearch within a gradle build.'
+    tags = ['elastic', 'Elasticsearch']
 
     plugins {
         greetingsPlugin {
             id = project.group
-            displayName = 'Gradle ElasticSearch plugin'
+            displayName = 'Gradle Elasticsearch plugin'
         }
     }
 
