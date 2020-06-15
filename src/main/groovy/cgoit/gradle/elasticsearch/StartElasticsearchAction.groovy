@@ -57,6 +57,10 @@ class StartElasticsearchAction {
     @Optional
     Boolean forceShutdownBeforeStart = Boolean.FALSE
 
+    @Input
+    @Optional
+    String mirrorUrl
+
     private Project project
 
     private AntBuilder ant
@@ -79,7 +83,7 @@ class StartElasticsearchAction {
         File pidFile = new File(toolsDir, 'elastic/elastic.pid')
 
         ElasticsearchActions elastic = new ElasticsearchActions(project, toolsDir,
-                elasticsearchVersion, httpScheme, httpHost, httpPort, pidFile)
+                elasticsearchVersion, httpScheme, httpHost, httpPort, pidFile, mirrorUrl)
 
         elastic.install()
 
