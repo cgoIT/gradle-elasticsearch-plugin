@@ -77,6 +77,7 @@ class StartElasticsearchAction {
         File tmpDir = new File("$project.buildDir/elastic/tmp")
         logsDir = logsDir ?: new File("$dataDir/logs")
         File pidFile = new File(toolsDir, 'elastic/elastic.pid')
+        File home = new File(toolsDir, "elastic")
 
         ElasticsearchActions elastic = new ElasticsearchActions(project, toolsDir,
                 elasticsearchVersion, httpScheme, httpHost, httpPort, pidFile)
@@ -116,8 +117,12 @@ class StartElasticsearchAction {
                 "${optPrefix}path.data=$dataDir",
                 "${optPrefix}path.repo=$dataDir/repo",
                 "${optPrefix}path.logs=$logsDir",
-                "${optPrefix}xpack.ml.enabled=false"
         ]
+
+        def mlModule = new File("$home/modules/x-pack-ml")
+        if (mlModule.exists()) {
+            command +=  "${optPrefix}xpack.ml.enabled=false"
+        }
 
         println "${CYAN}* elastic:$NORMAL start ElasticSearch with parameters: ${command.toListString()}"
 
