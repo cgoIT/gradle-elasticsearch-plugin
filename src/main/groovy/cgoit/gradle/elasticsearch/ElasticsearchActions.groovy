@@ -25,7 +25,7 @@ class ElasticsearchActions {
     File pidFile
 
     ElasticsearchActions(Project project, File toolsDir, String version,
-            String httpScheme, String httpHost, Integer httpPort, File pidFile) {
+                         String httpScheme, String httpHost, Integer httpPort, File pidFile, String mirrorUrl) {
         this.project = project
         this.toolsDir = toolsDir
         this.version = version
@@ -35,6 +35,7 @@ class ElasticsearchActions {
         this.httpHost = httpHost
         this.httpPort = httpPort
         this.pidFile = pidFile
+        this.mirrorUrl = mirrorUrl
     }
 
     boolean isRunning(maxWait = 10) {
@@ -196,26 +197,30 @@ class ElasticsearchActions {
         switch (majorVersion) {
             case 0:
             case 1:
-                linuxUrl = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz"
-                winUrl = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${version}.zip"
+                String downloadBaseUrl = mirrorUrl != null ? mirrorUrl : "https://download.elastic.co/elasticsearch"
+                linuxUrl = downloadBaseUrl + "/elasticsearch/elasticsearch-${version}.tar.gz"
+                winUrl = downloadBaseUrl + "/elasticsearch/elasticsearch-${version}.zip"
                 break
 
             case 2:
-                linuxUrl = "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${version}/elasticsearch-${version}.tar.gz"
-                winUrl = "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/${version}/elasticsearch-${version}.zip"
+                String downloadBaseUrl = mirrorUrl != null ? mirrorUrl : "https://download.elasticsearch.org/elasticsearch/release"
+                linuxUrl = downloadBaseUrl +"/org/elasticsearch/distribution/tar/elasticsearch/${version}/elasticsearch-${version}.tar.gz"
+                winUrl = downloadBaseUrl +"/org/elasticsearch/distribution/zip/elasticsearch/${version}/elasticsearch-${version}.zip"
                 break
 
         // there are no versions 3 and 4
 
             case 7:
-                linuxUrl = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${version}-linux-x86_64.tar.gz"
-                winUrl = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${version}-windows-x86_64.zip"
+                String downloadBaseUrl = mirrorUrl != null ? mirrorUrl : "https://artifacts.elastic.co/downloads/elasticsearch"
+                linuxUrl = downloadBaseUrl + "/elasticsearch-${version}-linux-x86_64.tar.gz"
+                winUrl = downloadBaseUrl + "/elasticsearch-${version}-windows-x86_64.zip"
                 break
 
 
             default: // catches version 5 and up
-                linuxUrl = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${version}.tar.gz"
-                winUrl = "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${version}.zip"
+                String downloadBaseUrl = mirrorUrl != null ? mirrorUrl : "https://artifacts.elastic.co/downloads/elasticsearch"
+                linuxUrl = downloadBaseUrl + "/elasticsearch-${version}.tar.gz"
+                winUrl = downloadBaseUrl + "/elasticsearch-${version}.zip"
                 break
         }
 

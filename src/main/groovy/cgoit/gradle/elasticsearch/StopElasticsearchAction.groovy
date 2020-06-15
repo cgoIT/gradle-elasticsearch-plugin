@@ -45,10 +45,11 @@ class StopElasticsearchAction {
         httpScheme = httpScheme ?: DEFAULT_ELASTICSEARCH_SCHEME
         httpHost = httpHost ?: DEFAULT_ELASTICSEARCH_HOST
         httpPort = httpPort ?: DEFAULT_ELASTICSEARCH_PORT
+        String mirrorUrl = null;
 
         ElasticsearchActions elastic = new ElasticsearchActions(project, toolsDir,
                 elasticVersion ?: DEFAULT_ELASTICSEARCH_VERSION,
-                httpScheme, httpHost, httpPort, pidFile)
+                httpScheme, httpHost, httpPort, pidFile, mirrorUrl)
 
         if (elastic.isRunning()) {
             elastic.stopRunning()

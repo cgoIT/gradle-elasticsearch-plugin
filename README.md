@@ -106,6 +106,23 @@ build clean-up phase.
 Lastly the regular test task is configured to exclude the tests with the IT suffix - we only wanted to run these in the
 integration tests phase, not with the regular tests.
 
+## Using a download mirror.
+
+If you perfer to download elasticsearch from a mirror, rather than the official site, you can specify a mirror URL for 
+the startElasticsearch task.
+
+```gradle
+    ...
+    startElasticsearch {
+        ...
+         mirrorUrl = "http://my.local.repository/repository/elastic-download/elasticsearch"
+    }
+
+```
+
+This is especially useful if your company uses an internal repository for dependencies and/or has paranoid proxy 
+policies.
+
 # References
 
 - [ElasticSearch](https://www.elastic.co/products/elasticsearch)
