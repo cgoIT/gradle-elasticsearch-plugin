@@ -4,7 +4,6 @@ import com.kstruct.gethostname4j.Hostname
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
-import org.gradle.internal.impldep.org.apache.commons.lang.BooleanUtils
 
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.CYAN
 import static cgoit.gradle.elasticsearch.ElasticsearchPlugin.DEFAULT_ELASTICSEARCH_HOST
@@ -84,7 +83,7 @@ class StartElasticsearchAction {
         elastic.install()
 
         if (elastic.isRunning()) {
-            if (BooleanUtils.isFalse(forceShutdownBeforeStart)) {
+            if (isFalse(forceShutdownBeforeStart)) {
                 println "${YELLOW}* elastic:$NORMAL ElasticSearch seems to be running at pid ${pidFile.text}"
                 println "${YELLOW}* elastic:$NORMAL please check $pidFile"
                 return
@@ -176,6 +175,14 @@ class StartElasticsearchAction {
         } else {
             println "${RED}* elastic:$NORMAL could not start ElasticSearch"
             throw new RuntimeException("failed to start ElasticSearch")
+        }
+    }
+
+    private static boolean isFalse(Boolean bool) {
+        if (bool == null) {
+            return false;
+        } else {
+            return !bool;
         }
     }
 }
