@@ -85,20 +85,20 @@ class StartElasticsearchAction {
 
         if (elastic.isRunning()) {
             if (BooleanUtils.isFalse(forceShutdownBeforeStart)) {
-                println "${YELLOW}* elastic:$NORMAL ElasticSearch seems to be running at pid ${pidFile.text}"
+                println "${YELLOW}* elastic:$NORMAL Elasticsearch seems to be running at pid ${pidFile.text}"
                 println "${YELLOW}* elastic:$NORMAL please check $pidFile"
                 return
             }
 
             String pid = elastic.getPid()
-            println "${CYAN}* elastic:$NORMAL ElasticSearch seems to be running at pid ${pid} and 'forceShutdownBeforeStart=true'"
+            println "${CYAN}* elastic:$NORMAL Elasticsearch seems to be running at pid ${pid} and 'forceShutdownBeforeStart=true'"
             elastic.stopRunning()
         }
 
-        println "${CYAN}* elastic:$NORMAL starting ElasticSearch at $elastic.home using http port $httpPort and tcp transport port $transportPort"
-        println "${CYAN}* elastic:$NORMAL ElasticSearch data directory: $dataDir"
-        println "${CYAN}* elastic:$NORMAL ElasticSearch logs directory: $logsDir"
-        println "${CYAN}* elastic:$NORMAL ElasticSearch tmp directory: $tmpDir"
+        println "${CYAN}* elastic:$NORMAL starting Elasticsearch at $elastic.home using http port $httpPort and tcp transport port $transportPort"
+        println "${CYAN}* elastic:$NORMAL Elasticsearch data directory: $dataDir"
+        println "${CYAN}* elastic:$NORMAL Elasticsearch logs directory: $logsDir"
+        println "${CYAN}* elastic:$NORMAL Elasticsearch tmp directory: $tmpDir"
 
         ant.delete(failonerror: true, dir: dataDir)
         ant.delete(failonerror: true, dir: logsDir)
@@ -119,7 +119,7 @@ class StartElasticsearchAction {
                 "${optPrefix}xpack.ml.enabled=false"
         ]
 
-        println "${CYAN}* elastic:$NORMAL start ElasticSearch with parameters: ${command.toListString()}"
+        println "${CYAN}* elastic:$NORMAL start Elasticsearch with parameters: ${command.toListString()}"
 
         if (!isFamily(FAMILY_WINDOWS)) {
             command += [
@@ -155,7 +155,7 @@ class StartElasticsearchAction {
         def out = new StringBuilder()
         p.consumeProcessOutput(out, out)
 
-        println "${CYAN}* elastic:$NORMAL waiting for ElasticSearch to start"
+        println "${CYAN}* elastic:$NORMAL waiting for Elasticsearch to start"
         boolean running = elastic.isRunning(120)
 
         println out
@@ -172,10 +172,10 @@ class StartElasticsearchAction {
                     it.write(elastic.getPid())
                 }
             }
-            println "${CYAN}* elastic:$NORMAL ElasticSearch is now up"
+            println "${CYAN}* elastic:$NORMAL Elasticsearch is now up"
         } else {
-            println "${RED}* elastic:$NORMAL could not start ElasticSearch"
-            throw new RuntimeException("failed to start ElasticSearch")
+            println "${RED}* elastic:$NORMAL could not start Elasticsearch"
+            throw new RuntimeException("failed to start Elasticsearch")
         }
     }
 }

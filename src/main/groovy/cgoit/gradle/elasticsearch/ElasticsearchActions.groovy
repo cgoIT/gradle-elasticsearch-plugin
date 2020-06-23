@@ -103,7 +103,7 @@ class ElasticsearchActions {
     }
 
     boolean stopRunning() {
-        println "${CYAN}* elastic:$NORMAL stopping ElasticSearch"
+        println "${CYAN}* elastic:$NORMAL stopping Elasticsearch"
 
         try {
             if (Integer.valueOf(version.split("\\.")[0]) >= 2) {
@@ -116,8 +116,8 @@ class ElasticsearchActions {
                 }
 
                 if (!elasticPid) {
-                    println "${RED}* elastic:$NORMAL could not get pid of running ElasticSearch!"
-                    println "${RED}* elastic:$NORMAL could not stop ElasticSearch, please check manually!"
+                    println "${RED}* elastic:$NORMAL could not get pid of running Elasticsearch!"
+                    println "${RED}* elastic:$NORMAL could not stop Elasticsearch, please check manually!"
                     return false
                 }
                 println "${CYAN}* elastic:$NORMAL going to kill pid $elasticPid"
@@ -132,15 +132,15 @@ class ElasticsearchActions {
                         execute(Post("${httpScheme}://${httpHost}:${httpPort}/_shutdown"))
             }
 
-            println "${CYAN}* elastic:$NORMAL waiting for ElasticSearch to shutdown"
+            println "${CYAN}* elastic:$NORMAL waiting for Elasticsearch to shutdown"
             boolean shutdown = waitForShutdown(120)
 
             if (!shutdown) {
-                println "${RED}* elastic:$NORMAL could not stop ElasticSearch"
+                println "${RED}* elastic:$NORMAL could not stop Elasticsearch"
                 return false
             }
 
-            println "${CYAN}* elastic:$NORMAL ElasticSearch is now down"
+            println "${CYAN}* elastic:$NORMAL Elasticsearch is now down"
         } catch (ConnectException e) {
             println "${CYAN}* elastic:$YELLOW warning - unable to stop elastic on http port ${httpPort}, ${e.message}$NORMAL"
             return false
@@ -182,7 +182,7 @@ class ElasticsearchActions {
 
     void install() {
         if (isInstalled()) {
-            println "${CYAN}* elastic:$NORMAL elastic search version $version detected at $home"
+            println "${CYAN}* elastic:$NORMAL Elasticsearch version $version detected at $home"
             return
         }
 

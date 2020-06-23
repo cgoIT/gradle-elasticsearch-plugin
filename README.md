@@ -1,5 +1,5 @@
 # gradle-elasticsearch-plugin
-An ElasticSearch gradle plugin for starting an ElasticSearch within a gradle build.
+An Elasticsearch gradle plugin for starting an Elasticsearch within a gradle build.
 
 [ ![Build Status](https://travis-ci.org/cgoIT/gradle-elasticsearch-plugin.svg?branch=master) ](https://travis-ci.org/amirkibbar/bilberry)
 [ ![Download](https://api.bintray.com/packages/cgoit/maven/gradle-elasticsearch-plugin/images/download.svg) ](https://bintray.com/cgoIT/maven/gradle-elasticsearch-plugin/_latestVersion)
@@ -36,7 +36,7 @@ Plugin setup with gradle < 2.1:
     apply plugin: 'cgoit.gradle.elasticsearch'
 ```
 
-# Starting and stopping ElasticSearch during the integration tests
+# Starting and stopping Elasticsearch during the integration tests
 
 ```gradle
 
@@ -89,7 +89,7 @@ The above example shows a task called integrationTests which runs all the tests 
 reports for these tests are placed in the buildDir/reports/integration-tests directory - just to separate them from
 regular tests. But the important part here is in the doFirst and doLast. 
 
-In the doFirst ElasticSearch is started. All the values in the example above are the default values, so if these values
+In the doFirst Elasticsearch is started. All the values in the example above are the default values, so if these values
 work for you they can be ommitted:
 
 ```gradle
@@ -99,8 +99,8 @@ work for you they can be ommitted:
     }
 ```
 
-In the doLast ElasticSearch is stopped. Note that ElasticSearch is also stopped in the gradle.taskGraph.afterTask 
-section - this is to catch any crashes during the integration tests and make sure that ElasticSearch is stopped in the 
+In the doLast Elasticsearch is stopped. Note that Elasticsearch is also stopped in the gradle.taskGraph.afterTask 
+section - this is to catch any crashes during the integration tests and make sure that Elasticsearch is stopped in the 
 build clean-up phase.
 
 Lastly the regular test task is configured to exclude the tests with the IT suffix - we only wanted to run these in the
@@ -108,4 +108,4 @@ integration tests phase, not with the regular tests.
 
 # References
 
-- [ElasticSearch](https://www.elastic.co/products/elasticsearch)
+- [Elasticsearch](https://www.elastic.co/products/elasticsearch)
